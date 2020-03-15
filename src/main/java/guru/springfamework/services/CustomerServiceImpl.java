@@ -3,6 +3,7 @@ package guru.springfamework.services;
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.repositories.CustomerRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,5 +26,12 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customerMapper::customerToCustomerDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CustomerDTO findById(Long id) {
+        return customerRepository.findById(id)
+                .map(customerMapper::customerToCustomerDTO)
+                .orElseThrow(RuntimeException::new);
     }
 }
