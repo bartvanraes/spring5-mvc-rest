@@ -3,12 +3,15 @@ package guru.springfamework.controllers.v1;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.api.v1.model.CatorgoryListDTO;
 import guru.springfamework.services.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by jt on 9/26/17.
  */
+@Api(description ="This is the controller for Category")
 @RestController
 @RequestMapping(CategoryController.BASE_URL)
 public class CategoryController {
@@ -21,12 +24,14 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @ApiOperation(value = "Get all the categories")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CatorgoryListDTO getallCatetories(){
         return new CatorgoryListDTO(categoryService.getAllCategories());
     }
 
+    @ApiOperation(value = "Get a category by its name")
     @GetMapping("{name}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategoryByName(@PathVariable String name){
